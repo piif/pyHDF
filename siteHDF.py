@@ -89,3 +89,54 @@ class siteHDF:
             self.page.get_by_role("button", name="Confirmer").click()
             self.page.get_by_role("link", name="Retour").click()
             return f"débit {montant} OK"
+
+    def getTransactions(self, fromDate, toDate = None):
+        c = self.page.get_by_role("heading", name="Rechercher par date de transaction :").count()
+        if c == 0:
+            info("Accès à la plage des transactions")
+            self.page.get_by_role("link", name="Transactions").click()
+            self.page.get_by_role("link", name="Historique").click()
+
+        l = self.page.locator("#dateDebutRealisation")
+        l.fill('')
+        l.click()
+        self.page.keyboard.type(fromDate.replace('/',''))
+
+        l = self.page.locator("#dateFinRealisation")
+        l.fill('')
+        l.click()
+        if toDate is not None:
+            self.page.keyboard.type(toDate.replace('/',''))
+        self.page.get_by_role("button", name="Rechercher").click()
+        
+        self.page.pause()
+
+        result = []
+
+        while True:
+            result += self._scanArray()
+            sleep(1)
+            next = self.page.locator('a:has-text(">"):not(.disabled)')
+            if next.count() == 0:
+                break
+            next.click()
+
+        return result
+
+    def _scanArray(self):
+        result = []
+        lines = self.page.locator("table#tabTransaction>tbody>tr")
+        info(f"trouvé {lines.count()} lignes")
+        for line in range(lines.count()):
+            tds=lines.nth(line).locator("td")
+            # N° de transaction
+            # N° de carte
+            # Nom Prenom
+            # Date transaction
+            # Origine transaction
+            # Statut
+            # Date remboursement
+            # Montant
+            # Action
+            result.append([ tds.nth(i).inner_text() for i in (0, 1, 2, 3, 7) ])
+        return result
