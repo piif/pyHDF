@@ -1,3 +1,11 @@
+# ne pas stocker le fihier de config local (contient des mots de passe)
+config.yml
+
+# ne pas stocker les fichiers de données
+data/*
+
+# toute la suite a été générée par github
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -1,0 +1,20 @@
+# copiez ce fichier dans un fichier config/yml et adaptez son contenu
+
+# les données du site partenaire
+hdf:
+  url: https://partenaires.cartegeneration.hautsdefrance.fr
+  user: "votre numéro de partenaire à 4 chiffres"
+  password: "votre mot de passe pour vous connecter au site partenaires"
+
+# la base de données du logiciel BAL
+database:
+  server: localhost
+  port: 3306
+  user: "super utilisateur mysql"
+  password: "son mot de passe"
+
+# détails techniques : si vous ne comprenez pas ce que ça veut dire, laissez comme ça :-)
+
+# si les tableaux contiennent des caractères bizarres à la place des accents,
+# vous pouvez tenter de mettre iso-8859-1 ou cp1252 à la place de utf-8
+encoding: utf-8
