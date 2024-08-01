@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright, Playwright
+from playwright.sync_api import sync_playwright
 from time import sleep
 from myTools import info
 
@@ -7,13 +7,16 @@ class siteHDF:
     page = None
     config = None
 
-    def __init__(self, playwright, config, headless = True):
+    def __init__(self, config, headless = True):
         self.config = config['hdf']
         info(f"Démarrage du navigateur ...")
-        self.playwright = playwright
-        browser = self.playwright.chromium.launch(headless = headless)
-        self.page = browser.new_page()
+        self.playwright = sync_playwright().start()
+        self.browser = self.playwright.chromium.launch(headless = headless)
+        self.page = self.browser.new_page()
         self.connectToSite()
+
+    def close(self):
+        self.playwright.stop()
 
     def connectToSite(self):
         info(f"Accès au site {self.config['url']} ...")
@@ -109,17 +112,30 @@ class siteHDF:
             self.page.keyboard.type(toDate.replace('/',''))
         self.page.get_by_role("button", name="Rechercher").click()
         
-        self.page.pause()
+        nbTrx = self.page.get_by_text("Transaction(s) trouvée(s)").inner_text()
+        info(nbTrx)    
+        if nbTrx.startswith("0 "):
+            info("Pas de transaction pour ces dates")
+            return []
 
-        result = []
+        # la recherche retourne une page avec une barre de pagination "<" "1" "2" ... "12" ">"
+        # chacun de ces item a la classe .pagination_button
+        # s'il y en a 2, (que < et >) c'est qu'il n'y a pas de résultats
+        # sinon il faut regarder le contenu de l'avant dernier bouton pour savoir combien il
+        # y a de page (ici 12) et en déduire combien de fois il faut cliquer sur le dernier
+        # self.page.get_by_label(">")
+        pagination = self.page.locator('.paginate_button')
 
-        while True:
-            result += self._scanArray()
-            sleep(1)
-            next = self.page.locator('a:has-text(">"):not(.disabled)')
-            if next.count() == 0:
-                break
+        last = int(pagination.nth(pagination.count()-2).inner_text())
+        info(f"Trouvé {last} pages de résultats")
+        next = pagination.nth(pagination.count()-1)
+
+        # TODO : passer par un itérateur plutôt que des concat de tableaux
+        result = self._scanArray()
+        for p in range(1, last):
             next.click()
+            sleep(1)
+            result += self._scanArray()
 
         return result
 
@@ -127,16 +143,20 @@ class siteHDF:
         result = []
         lines = self.page.locator("table#tabTransaction>tbody>tr")
         info(f"trouvé {lines.count()} lignes")
-        for line in range(lines.count()):
-            tds=lines.nth(line).locator("td")
-            # N° de transaction
-            # N° de carte
-            # Nom Prenom
-            # Date transaction
-            # Origine transaction
-            # Statut
-            # Date remboursement
-            # Montant
-            # Action
-            result.append([ tds.nth(i).inner_text() for i in (0, 1, 2, 3, 7) ])
+        for line in lines.all():
+            tds=line.locator("td").all_inner_texts()
+            # 0: N° de transaction
+            # 1: N° de carte
+            # 2: Nom Prenom
+            # 3: Date transaction
+            # 4: Origine transaction
+            # 5: Statut
+            # 6: Date remboursement
+            # 7: Montant
+            # 8: Action
+            if len(tds) == 0:
+                info("tds vide ?")
+                continue
+            info(tds[0])
+            result.append([ tds[0], tds[1], tds[2], tds[3], tds[7].strip(" €") ])
         return result

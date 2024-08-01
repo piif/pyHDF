@@ -1,7 +1,5 @@
 import sys, os, getopt
 
-from playwright.sync_api import sync_playwright, Playwright
-
 from myTools import info
 from config import readConfig
 from siteHDF import siteHDF
@@ -43,7 +41,7 @@ def main(argv):
         elif o in ("-c", "--config"):
             configPath = a
         elif o in ("-r", "--rapport"):
-            reportPath = False
+            reportPath = a
         elif o in ("-v", "--visible"):
             headless = False
         else:
@@ -61,14 +59,14 @@ def main(argv):
         report = open(reportPath, 'w', encoding=cfg['encoding'])
         info(f"Le rapport sera envoyé dans le fichier {reportPath}")
 
-    with sync_playwright() as playwright:
-        HDF = siteHDF(playwright, cfg, headless)
+    HDF = siteHDF(cfg, headless)
 
-        results = HDF.getTransactions(fromDate, toDate)
-        for result in results:
-            setResult(report, result)
+    results = HDF.getTransactions(fromDate, toDate)
+    for result in results:
+        setResult(report, result)
 
-        report.close()
+    report.close()
+    HDF.close()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
