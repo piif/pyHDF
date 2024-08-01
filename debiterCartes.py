@@ -66,8 +66,8 @@ def main(argv):
         report = open(reportPath, 'w', encoding=cfg['encoding'])
         info(f"Le rapport sera envoyé dans le fichier {reportPath}")
 
-    with sync_playwright() as playwright, open(inputPath, 'r', encoding=cfg['encoding']) as input:
-        HDF = siteHDF(playwright, cfg, headless)
+    with open(inputPath, 'r', encoding=cfg['encoding']) as input:
+        HDF = siteHDF(cfg, headless)
 
         dummy = input.readline()
         for line in input.readlines():
