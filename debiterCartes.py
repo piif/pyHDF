@@ -1,7 +1,5 @@
 import sys, os, getopt
 
-from playwright.sync_api import sync_playwright, Playwright
-
 from myTools import info
 from config import readConfig
 from siteHDF import siteHDF
