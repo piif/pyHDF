@@ -158,5 +158,5 @@ class siteHDF:
                 info("tds vide ?")
                 continue
             info(tds[0])
-            result.append([ tds[0], tds[1], tds[2], tds[3], tds[7].strip(" €") ])
+            result.append([ tds[0], tds[1], tds[2], tds[3], tds[7].strip(" €").replace(',', '.') ])
         return result

@@ -12,6 +12,7 @@ database:
   port: 3306
   user: "super utilisateur mysql"
   password: "son mot de passe"
+  base: "bl2"
 
 # détails techniques : si vous ne comprenez pas ce que ça veut dire, laissez comme ça :-)
 
