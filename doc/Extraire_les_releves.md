@@ -1,4 +1,4 @@
-Le programme `extraireTransactions.py` a pour but de récupérer l'historique des paiements sur le site "génération HDF", entre 2 dates
+Le programme `extraireTransactions.py` a pour but de récupérer l'historique des paiements sur le site "génération HDF", entre 2 dates.  
 Pour s'en servir, il faut avoir installé l'environnement Python et disposer d'un accès à l'espace partenaire (voir [la doc d'installation](Installation.md))
 
 On peut alors lancer la commande :
