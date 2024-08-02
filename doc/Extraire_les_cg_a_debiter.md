@@ -48,7 +48,9 @@ Si on décommente la partie "into" (chemin du fichier à adapter à votre ordina
 
 Si on commente la partie `and NbLivresLivraison...` et `and (select ...) <= 1`, on sort tous les débits, y compris pour les élèves à qui on n'a pas encore livré les livres
 
-## Remarque
+## Remarques
 
 Pour pouvoir effectuer cette requête il faut s'être créé un utilisateur avec suffisamment de droits, puisque l'utilisateur mysql utilisé par le logiciel BAL à un mot de passe tenu secret.  
 Pour cela, on peut passer par la procédure indiquée dans [Creer un utilisateur mysql](Creer_un_utilisateur_mysql.md).
+
+De plus, comme la base est cryptée à l'arrêt du logiciel, il faut que BAL soit lancé avant d'effectuer cette requête

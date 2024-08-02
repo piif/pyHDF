@@ -27,12 +27,14 @@ Il faut donc que le logiciel soit actif lorsqu'on lance des programmes qui dialo
 ## But
 
 Le but de ce projet est de faciliter 4 opérations :
- - Exporter la liste des cartes à débiter, en consultant la base de données adossée au logiciel BAL;
- - Effectuer les débits CG en masse;
- - Extraire les relevés de paiement depuis le site (les relevés hebdomadaire ne contenant pas les n° de transaction, il est intéressant de les exporter à partir de lapage de recherche);
- - Réconcilier les relevés fournis par le site partenaire avec les données dans la base BAL, c'est à dire transformer les provisions en paiements effectifs avec leur date et leur n° de transaction.
+ - [Exporter la liste des cartes à débiter](doc/Extraire_les_cg_a_debiter.md), en consultant la base de données adossée au logiciel BAL;
+ - [Effectuer les débits CG en masse](doc/Debiter_les_CG.md);
+ - [Extraire les relevés de paiement depuis le site](doc/Extraire_les_releves.md) (les relevés hebdomadaire ne contenant pas les n° de transaction, il est intéressant de les exporter à partir de lapage de recherche);
+ - [Réconcilier les relevés](doc/Reconcilier_les_releves.md) fournis par le site partenaire avec les données dans la base BAL, c'est à dire transformer les provisions en paiements effectifs avec leur date et leur n° de transaction.
 
 Les quatre actions sont disjointes et vous pouvez n'utiliser que les parties "débit en masse" et "extraction des relevés" sans avoir le logiciel BAL.
+
+Consultez la [doc d'installation](doc/Installation.md) pour savoir ce qu'il faut installer selon vos besoins.
 
 ## Détails techniques
 
@@ -41,4 +43,4 @@ Comme la région HdF ne fournit pas d'API documentée pour effectuer ces opérat
 Pour cela, le projet utilise le langage python (parce que largement répandu, il sera donc plus facile de passer la main aux futurs membres de l'association) et l'outil playwright qui intègre de quoi simuler des opérations sur un navigateur.
 
 Par ailleurs, la partie réconciliation a besoin d'écrire directement dans la base de données du logiciel BAL.  
-Pour cela, il est nécessaire de créer un utilisateur mysql, en suivant la procédure indiquée dans  [Creer_un_utilisateur_mysql](Creer un utilisateur mysql.md).
+Pour cela, il est nécessaire de créer un utilisateur mysql, en suivant la procédure indiquée dans  [Creer un utilisateur mysql](doc/Creer_un_utilisateur_mysql.md).
