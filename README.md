@@ -41,4 +41,4 @@ Comme la région HdF ne fournit pas d'API documentée pour effectuer ces opérat
 Pour cela, le projet utilise le langage python (parce que largement répandu, il sera donc plus facile de passer la main aux futurs membres de l'association) et l'outil playwright qui intègre de quoi simuler des opérations sur un navigateur.
 
 Par ailleurs, la partie réconciliation a besoin d'écrire directement dans la base de données du logiciel BAL.  
-Pour cela, il est nécessaire de créer un utilisateur mysql, en suivant la procédure indiquée dans  [Creer_un_utilisateur_mysql](Creer_un_utilisateur_mysql.md).
+Pour cela, il est nécessaire de créer un utilisateur mysql, en suivant la procédure indiquée dans  [Creer_un_utilisateur_mysql](Creer un utilisateur mysql.md).
