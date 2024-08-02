@@ -37,7 +37,7 @@ class siteHDF:
     def doTransaction(self, testMode, nom, prenom, numero, naiss, montant):
         c = self.page.get_by_role("heading", name="Débiter une carte").count()
         if c == 0:
-            info("Accès à la plage des débits")
+            info("Accès à la page des débits")
             self.page.get_by_role("link", name="Transactions").click()
             self.page.get_by_role("link", name="Faire un débit").click()
 
@@ -96,7 +96,7 @@ class siteHDF:
     def getTransactions(self, fromDate, toDate = None):
         c = self.page.get_by_role("heading", name="Rechercher par date de transaction :").count()
         if c == 0:
-            info("Accès à la plage des transactions")
+            info("Accès à la page des transactions")
             self.page.get_by_role("link", name="Transactions").click()
             self.page.get_by_role("link", name="Historique").click()
 
