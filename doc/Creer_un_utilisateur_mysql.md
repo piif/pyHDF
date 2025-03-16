@@ -11,7 +11,7 @@ Dans le cas du logiciel BAL, cette base est sur le poste de travail, dans le ré
 On peut donc créer un fichier `C:\FCPE-Applications\mon-user.sql` contenant ceci (nom et mot de passe à adapter évidement) :
 ```
 create user 'mon_user' identified by 'mon_mot_de_passe';
-grant all privileges on *.* to 'super'@'%' with grant option;
+grant all privileges on *.* to 'mon_user'@'%' with grant option;
 ```
 
 Il faut ensuite arrêter le service mysql (bien s'assurer que le logiciel BAL n'est pas actif auparavant) :
