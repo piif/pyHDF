@@ -1,9 +1,9 @@
 import sys, os, getopt
 from datetime import datetime
-import mysql.connector
 
 from myTools import info
 from config import readConfig
+from myMysql import connexion, addUpdate
 
 def usage(message = None):
     if message is not None:
@@ -24,25 +24,6 @@ def setResult(report, fields, result):
     info(result)
     print(resultLine, file=report)
 
-
-def connexion(cfg):
-    cnx = mysql.connector.connect(
-        user=cfg['database']['user'], password=cfg['database']['password'],
-        host=cfg['database']['server'], port=cfg['database']['port'],
-        database=cfg['database']['base'], charset='utf8')
-    query = cnx.cmd_query("select Nom from f_enfant limit 1")
-    rows, diag = cnx.get_rows()
-    if rows[0][0] is None:
-        raise Exception("La base BAL est cryptée : démarrer le logiciel pour qu'elle soit en clair")
-    return cnx
-
-def addUpdate(update, field, current, expected, quote = True):
-    if current == expected:
-        return update
-    if quote:
-        return update + [ f"{field} = '{expected}'" ]
-    else:
-        return update + [ f"{field} = {expected}" ]
 
 def convDate(d):
     if len(d) == 10: # avec des "/"
@@ -125,7 +106,6 @@ def reconcilier(cnx, testMode, trx, cg, nom_prenom, date, montant):
 
 def main(argv):
     testMode=True
-    headless=True
     configPath = os.path.dirname(__file__) + "/config.yml"
     inputPath = None
     reportPath = None

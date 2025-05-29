@@ -4,6 +4,8 @@ Pour s'en servir, il faut avoir installé l'environnement Python et disposer d'u
 On peut alors lancer la commande :
 `python .\extraireTransactions.py --debut date_de_debut --fin date_de_fin --rapport le_fichier_rapport`
 
+Les dates sont à mettre au format jj/mm/aaaa.
+
 On peut ne pas mettre de date de fin, la recherche va alors jusqu'ux dernières transactions en date.
 
 Cela va remplir le fichier rapport avec les colonnes suivantes :

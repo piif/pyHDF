@@ -1,8 +1,8 @@
-Ce programme `reconcilierTransactions.py` est le seul qui effectue des modifications dans la base de données de BAL. **Il est donc très important d'effectuer une sauvegarde juste avant son utilisation**, pour ne pas perdre de données en cas de souci.
+Ce programme `reconcilierTransactions.py` effectue des modifications dans la base de données de BAL. **Il est donc très important d'effectuer une sauvegarde juste avant son utilisation**, pour ne pas perdre de données en cas de souci.
 
 Il est important de comprendre que ce programme n'est en rien maintenu ou garanti par les éditeurs du logiciel BAL, et qu'il peut donc très bien corrompre les données de BAL.
 
-Le but ce que programme est de mettre à jour les règlements dans BAL en fonction des relevés du site HDF.  
+Le but de ce programme est de mettre à jour les règlements dans BAL en fonction des relevés du site HDF.  
 En entrée, il utilise le fichier issu de l'[extraction des relevés](Extraire_les-releves.md)
 
 Pour s'en servir, il faut avoir installé l'environnement Python et paramétré l'accès à mysql (voir [la doc d'installation](Installation.md))
