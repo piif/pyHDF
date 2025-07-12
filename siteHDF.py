@@ -80,7 +80,7 @@ class siteHDF:
         if dispo < float(montant):
             return f"Pas assez sur la carte : {dispo}"
 
-        self.page.get_by_label("Montant à débiter").fill(montant)
+        self.page.get_by_label("Montant à débiter").fill(montant.replace('.', ','))
         if testMode:
             return f"SIMULATION débit {montant} OK"
         else:
